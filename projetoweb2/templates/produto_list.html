@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block content %}
+<main>
+
+    <ul class="page-nav">
+        <li>
+            <a class="btn btn-outline-success" 
+               href="{{ url_for('produto_new') }}">Cadastro</a>
+        </li>
+    </ul>
+
+    <h2>Lista de Produtos</h2>
+    <form id="form" action="/produto/search" method="post">
+        <input class="form-control" type="text" name="busca" id="busca" style="width: 150px; display: inline;">
+        <button type="submit" class="btn btn-primary"><i class="bi bi-search"></i></button>
+    </form>
+    
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preço</th>
+                <th>Marca</th>
+                <th>Categoria</th>
+                <th>Data de Adição</th>
+                <th class="actions">⌘</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produto in produtos %}
+            <tr>
+                <td>{{produto.id}}</td>
+                <td>
+                    <a title="editar" 
+                    href="{{ url_for('produto_edit', id=produto.id ) }}">
+                        {{produto.nome}}
+                    </a>
+                </td>
+                <td>U${{produto.preco}}</td>
+                <td>{{produto.marca}}</td>
+                <td>{{produto.categoria}}</td>
+                <td>{{produto.added}}</td>
+                <td class="actions">
+                    <a title="editar" class="btn btn-warning" href="{{ url_for('produto_edit', id=produto.id ) }}">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a title="deletar" class="btn btn-danger" 
+                    href="{{ url_for('produto_delete', id=produto.id) }}">
+                        <i class="bi bi-x-circle"></i>
+                    </a>
+                    <a title="Favoritar" class="btn btn-primary"
+                    href="{{url_for('favoritos_add', idp=produto.id)}}">
+                        <i class="bi bi-heart"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+
+{% endblock %}

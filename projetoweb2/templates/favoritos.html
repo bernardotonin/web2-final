@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+<main>
+    <h2>Lista de Favoritos</h2>
+    <p>user: <b>admin</b></p>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preco</th>
+                <th>Marca</th>
+                <th class="actions">⌘</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for favorito in favoritos %}
+            <tr>
+                <td>{{favorito.id}}</td>
+                <td>{{favorito.nomeproduto}}</td>
+                <td>U${{favorito.precoproduto}}</td>
+                <td>{{favorito.marcaproduto}}</td>
+                <td><a title="deletar" class="btn btn-danger" 
+                    href="{{ url_for('favoritos_del', id=favorito.id) }}">
+                        <i class="bi bi-x-circle"></i>
+                    </a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</main>
+
+{% endblock %}
